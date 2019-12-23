@@ -1,0 +1,29 @@
+name: Blog API Application
+
+on: [push]
+
+jobs:
+  build:
+
+    name: Blog API
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Instala PHP 7.4
+      run: |
+        sudo apt-get update
+        sudo apt -y install software-properties-common
+        sudo add-apt-repository ppa:ondrej/php
+        sudo apt-get update
+        sudo apt -y install php7.4 php7.4-xml php7.4-mbstring php7.4-sqlite
+
+    - name: Valida arquivos composer.[json|lock]
+      run: cd 02-blog && composer validate
+
+    - name: Instala dependências
+      run: cd 02-blog && composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Testes funcionais
+      run: cd 02-blog && bin/phpunit
