@@ -20,10 +20,10 @@ jobs:
         sudo apt -y install php7.4 php7.4-xml php7.4-mbstring php7.4-sqlite
 
     - name: Valida arquivos composer.[json|lock]
-      run: cd 02-blog && composer validate
+      run: composer validate
 
     - name: Instala dependências
-      run: cd 02-blog && composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Testes funcionais
-      run: cd 02-blog && bin/phpunit
+      run: bin/phpunit
